@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Tom Residue</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<style>
+body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
+body {font-size:16px;}
+.w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
+.w3-half img:hover{opacity:1}
+</style>
+</head>
+<body>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-black w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+  <div class="w3-container">
+    <h3 class="w3-padding-64"><b>Tom<br>Residue</b></h3>
+  </div>
+  <div class="w3-bar-block">
+    <a href={{url_for('home1')}} class="w3-bar-item w3-button w3-hover-white">Home</a>
+    <a href={{url_for('home2')}} class="w3-bar-item w3-button w3-hover-white">Crop Residue Management Techniques</a>
+    <a href={{url_for('home3')}} class="w3-bar-item w3-button w3-hover-white">Our Model</a>
+  </div>
+</nav>
+
+<!-- Top menu on small screens -->
+<header class="w3-container w3-top w3-hide-large w3-black w3-xlarge w3-padding">
+  <a href="javascript:void(0)" class="w3-button w3-black w3-margin-right" onclick="w3_open()">☰</a>
+  <span>Company Name</span>
+</header>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:340px;margin-right:40px">
+
+  <!-- Header -->
+  <div class="w3-container" style="margin-top:80px" id="showcase">
+    <h1 class="w3-jumbo w3-text-green"><b> Our Model </b></h1>
+    <hr style="width:50px;border:5px solid green" class="w3-round">
+  </div>
+
+<h2>Select a file to upload</h2>
+<p>
+	{% with outpoo = get_flashed_messages() %}
+	  {% if outpoo %}
+		<p>There seems to be a problem: {{outpoo}}</p>
+
+
+	  {% endif %}
+	{% endwith %}
+	
+</p>
+{% if filename %}
+	<div>
+		<img src="{{ url_for('display_image', filename=filename) }}" width="819" height="512">
+	</div>
+{% endif %}
+
+
+ {% if output %}
+		<p>{{output}}.  It is important to note however, these predictions should only be considered on images of crops and soil</p>
+
+
+	  {% endif %}
+
+
+<form method="post" action="/" enctype="multipart/form-data">
+    <dl>
+		<p>
+			<input type="file" name="file" autocomplete="off" required>
+		</p>
+    </dl>
+    <p>
+		<input type="submit" value="Submit">
+	</p>
+</form>
